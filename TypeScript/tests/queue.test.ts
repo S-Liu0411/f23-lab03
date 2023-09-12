@@ -38,6 +38,31 @@ test.each(param)("test enqueue: enqueued number %d is correct", (nr) => {
     expect(queue.peek()).toBe(nr)
 })
 
+test("test clear: queue with 2 element should clear all elements", () => {
+    const queue = createQueue()
+    queue.enqueue(2)
+    queue.enqueue(3)
+    queue.clear()
+    expect(queue.isEmpty()).toBeTruthy()
+})
+
+test("test peek: queue with 2 element should dequeue the one that was most recently added", () => {
+    const queue = createQueue()
+    queue.enqueue(2)
+    queue.enqueue(3)
+    expect(queue.dequeue()).toEqual(3)
+    expect(queue.dequeue()).toEqual(2)
+    expect(queue.isEmpty()).toBeTruthy()
+})
+
+// parameterized test, apply to each value of the parameter
+test.each(param)("test dequeue: dequeued number %d is correct", (nr) => {
+    const queue = createQueue()
+    queue.enqueue(nr)
+    expect(queue.dequeue()).toBe(nr)
+    expect(queue.isEmpty()).toBeTruthy()
+})
+
 // can nest tests with shared descriptions for better readability
 describe("test size: ", ()=> {
     test("1 entry", ()=>{
